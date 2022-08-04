@@ -67,8 +67,7 @@ Several form field types: String, boolean, integer, email, password fields. And 
 @chapter Installation
 @anchor{installation}
 
-
-With Quicklisp:
+Install the library with Quicklisp:
 
 @lisp
 (ql:quickload "cl-forms")
@@ -100,7 +99,17 @@ On your web handler, grab the form via @clref{CL-FORMS,FIND-FORM,function}, sele
       (forms:render-form form))
 @end lisp
 
-To handle the form, grab it via @clref{CL-FORMS,FIND-FORM,function} and then call @clref{CL-FORMS,HANDLE-REQUEST,function} (you should probably also call @clref{CL-FORMS,VALIDATE-FORM,function} after). 
+To output HTML on the REPL, do:
+
+@lisp
+(with-output-to-string (forms.who:*html*)
+   (let ((form (forms:find-form 'fields-form)))
+     (forms:with-form-renderer :who
+       (forms:render-form form))))
+@end lisp
+
+
+To handle the form, grab it via @clref{CL-FORMS,FIND-FORM,function} and then call @clref{CL-FORMS,HANDLE-REQUEST,function} (you should probably also call @clref{CL-FORMS,VALIDATE-FORM,function} after).
 Then bind form fields via either @clref{CL-FORMS,WITH-FORM-FIELD-VALUES,macro}, that binds the form field values; or @clref{CL-FORMS,WITH-FORM-FIELDS,macro} that binds the form fields.
 
 @lisp
